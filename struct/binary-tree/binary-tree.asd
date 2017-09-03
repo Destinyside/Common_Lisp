@@ -11,4 +11,4 @@
   :version "1.0.0"
   :description "A test for binary tree"
   :components ((:file "package")
-  	       (:file "tree-node")))
+  	       (:file "binary-tree")))
