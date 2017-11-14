@@ -68,6 +68,45 @@ j1
   `(if ,test ,@body))
 
 
+(defun primep (number)
+  (when (> number 1)
+    (loop for fac from 2 to (isqrt number) never (zerop (mod number fac)))))
 
+;(defun next-prime (number)
+;  (loop for n from (1+ number) when (primep n) return n))
+(defun next-prime (number)
+  (loop for n from number when (primep n) return n))
 
+(defmacro do-primes-0 (start end)
+  `(if (> ,start ,end)
+       'error
+    (do ((p (next-prime ,start) (next-prime (1+ p))))
+	((> p ,end) 'end)
+      (format t "~d " p))))
+
+(defmacro do-primes-1 (start end &body body)
+  `(if (> ,start ,end)
+       'ERROR
+       (do ((p (next-prime ,start) (next-prime (1+ p))))
+	   ((> p ,end) 'END)
+	 (progn ,@body))))
+
+(defmacro do-primes ((var start end) &body body)
+  `(if (> ,start ,end)
+       'ERROR
+       (do ((,var (next-prime ,start) (next-prime (1+ ,var))))
+	   ((> ,var ,end) 'END)
+	 (progn ,@body))))
+
+(defmacro my-cond (&rest clouses)
+  ;(format t "~S~%" clouses)
+  `(if ,(caar clouses)
+	(progn ,(cadar clouses))
+       (my-cond ,@(cdr clouses) (t t))))
+       
+(defun test-cond (num)
+  (my-cond
+   ((< num 50) 'SMAIL)
+   ((= num 50) 'FIT)
+   ((> num 50) 'BIGGER)))
 
