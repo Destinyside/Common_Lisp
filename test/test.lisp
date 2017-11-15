@@ -284,7 +284,97 @@ j1
 
 
 ;; list
+(cons 1 2)       ; => (1 . 2)
+(car (cons 1 2)) ; => 1
+(cdr (cons 1 2)) ; => 2
+
+(cons 1 (cons 2 (cons 3 4))) ; => (1 2 3 . 4)
+(list 1 2 3 4) ; => (1 2 3 4)
+(list :a 1 :b 2 :c 3) ; => (:A 1 :B 2 :C 3)
+
+;; nconc nreverse
+;; reverse append push pop
+;; delete delete-if delete-if-not delete-duplicates
 
 
+;; first second third ... tenth
+;; nth nthcdr
 
+;; last butlast nbutlast ldiff
+;; list* make-list revappend nreconc
+;; tailp consp aton listp null
+
+;; mapcar maplist mapcan
+(mapcar #'(lambda (x) (format t "~A~%" x)) l  ; => 1 2 3 4 (NIL NIL NIL NIL)
+;
+;;
+
+(defun maptest (fn l)
+  (funcall fn #'(lambda (x) (format t "~A~%" x)) l))
+
+;; set
+adjoin
+
+;; member find -if -if-not
+;; intersection union set-difference set-exclusive-or subset
+
+
+;; alist ((a . 1) (b . 2))
+;; assoc -if -if-not
+
+;; plist (a 1 b 2) (:a 1 :b 2)
+;; setf getf remf remprop get-properties
+(defvar pl (list :a 1 :b 2))
+(remf pl :a)
+
+;; destructuring-bind
+(destructuring-bind (a b c) '(1 2 3)
+  (list a b c))
+
+;; file and file io
+;; open #:ARG0 &KEY
+;; :DIRECTION :input :output :io :probe
+;; :ELEMENT-TYPE string-char character unsigned-byte ...  :default 
+;; :IF-EXISTS :error :new-version :rename :rename-and-delete :overwrite :append :supersede nil
+;; :IF-DOES-NOT-EXIST :error :create nil
+;; :EXTERNAL-FORMAT 
+;; :BUFFERED
+;; close STREAM &KEY ABORT
+
+(let  ((s (open "tmp.txt" :direction :output :if-does-not-exist :create :if-exists :append)))
+  (write-line "aaaaaaaaa" s)
+  (close s))
+
+;; pathname
+;; pathconf pathname pathnamep pathname-match-p
+;; pathname-host       pathname-device
+;; pathname-directory  pathname-name
+;; pathname-type       pathname-version
+;; :absolute :realtive
+;; make-pathname &KEY :DEFAULTS :CASE :HOST :DEVICE :DIRECTORY :NAME :TYPE :VERSION
+;; merge-pathnames enough-namestring
+(defvar path0 (pathname "/root/Common_lisp/test/tmp.txt"))
+(pathname-directory path0)
+
+(make-pathname :device nil :directory '(:absolute "foo" "bar") :name "baz" :type "html")
+
+;; stream
+;; make-string-input-stream
+;; make-string-output-stream
+;; with-input-from-string
+;; with-output-to-string
+
+;; string-stream
+;; broadcast-stream
+;; concatenated-stream
+;; two-way-stream
+;; echo-stream
+
+;; #+ #-
+(defun foo ()
+  #+allegro (do-one)
+  #+sbcl (do-another)
+  #+clisp (do-else)
+  #+cmu (do-yet)
+  #-(or ecl ccl) (error "not impl..."))
 
