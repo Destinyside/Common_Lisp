@@ -77,3 +77,54 @@
 ;;;                       | (:and feature-expression*)
 ;;;                       | (:or feature-expression*)
 ;;;                       | (:not feature-expression)
+
+(in-package :cl-user)
+
+(defpackage :test-asd
+    (:use :cl :asdf))
+
+(in-package :test-asd)
+
+(defsystem :test ;test
+	   :name "Test"
+	   :version "1.0.0"  ;string
+                             ;|(:read-file-form pathname|string|symbol :at [integer|(integer+)])
+                             ;|(:read-file-line pathname|string|symbol :at integer)
+	   :author "Devin"
+	   :maintainer "Test"
+	   :license "MIT"
+	   :description "A defsystem test"
+
+	   :defsystem-depends-on nil  ;((string|symbol)*)
+           :weakly-depends-on nil ;((string|symbol)*)
+           :class :package-inferred-system ;class-name
+           :build-operation nil ;operation-name
+           :homepage "http://localhost/test" ;string
+           :bug-tracker "test" ;string
+           :mailto "test@test.test" ;string
+           :long-name "test" ;string
+           :source-control ('test  "test") ;(keyword string)
+
+           :components ((:file "packages")
+			(:module "module1" 
+			 :depends-on ("package")
+			 :components ((:file "module1")))
+			(:module "module2"
+		         :serial t
+			 :components ((:file "module2"))))   ;(:module|:file|:static-file|symbol-by-name  string|symbol  option*)*
+           :serial t ;[ t | nil ]
+ 	   :pathname "src" ;(pathname|string|symbol)
+ 	   :default-component-class 'test  ;class-name
+ 	   :perform () ;(operation-name method-qualifier? lambda-list &rest body)
+    	   :explain () ;(operation-name method-qualifier? lambda-list &rest body)
+  	   :output-files () ;(operation-name method-qualifier? lambda-list &rest body)
+ 	   :operation-done-p () ;(operation-name method-qualifier? lambda-list &rest body)
+  	   :if-feature (:and 'test1 'test2)
+  	   :depends-on (#:cffi
+			;(:feature (:and 'test1 'test2))
+			;(:version 'test3 "1.0.0")
+			;(:require #:cl-user)) ;(dependency-def*)
+  	   :in-order-to () ;( (operation-name (operation-name required-component+)+)+ )
+
+)
+
