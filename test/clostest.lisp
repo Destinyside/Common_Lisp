@@ -5,6 +5,9 @@
 (defclass circle ()
   (radius))
 
+(defgeneric area (x)
+	    (:documentation "calculate the area of specified class"))
+
 (defmethod area ((x rectangle))
   (* (slot-value x 'height) (slot-value x 'width)))
 
