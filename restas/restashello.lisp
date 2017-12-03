@@ -1,6 +1,6 @@
 ;;; add require for "ASDF"
-(require 'ecl-quicklisp)
-
+#+ecl (require 'ecl-quicklisp)
+#+(or clisp) (load "~/quicklisp/setup.lisp")
 ;;; load restas
 (asdf:operate 'asdf:load-op '#:restas)
 
@@ -10,11 +10,21 @@
 ;;;
 (in-package #:restas.hello-world)
 
+(asdf:oos 'asdf:load-op '#:cl-who)
+
+(defmacro with-html (&body body)
+  `(cl-who:with-html-output-to-string (*standard-output* nil :prologue t)
+                               ,@body))
+
 ;;; define a route 
 (restas:define-route main ("")
-		     "<h1>Hello world!</h1> \
-		     <a href=\"/hello\">hello</a>")
+		     (with-html
+		       (:html
+			 (:body
+			   (:h1 "Hello World!")
+			   (:a :href "/hello" "HELLO")))))
 (restas:define-route hello ("/hello")
-		     "<h1>You succeed in forwarding to path /hello</h1>")
+		     (with-html
+		       (:h1 "You succeed in forwarding to path /hello")))
 ;;; start the server
 (restas:start '#:restas.hello-world :port 8080)
