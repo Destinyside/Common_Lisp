@@ -8,5 +8,5 @@
       (list (car lst))
       (quicksort (remove-if #'(lambda (x) (< x (car lst))) (cdr lst)))))))
 
-(load "/root/Common_Lisp/sort/randomarray.lisp") ;random-array
+(load "randomarray.lisp") ;random-array
 (format t "~A~%" (quicksort (random-array (random 20))))
