@@ -17,6 +17,10 @@
 				      ,@body))
 
 (load "pages/index.lisp")
+(load "pages/hello.lisp")
+(load "pages/js-test.lisp")
 
 ;;; start the server
 (restas:start '#:restas.hello-world :port 8080)
+
+
