@@ -14,3 +14,8 @@
   ("/js/:(filename)")
   (format nil "~A~%" (file-to-str (concatenate 'string *project-path* "/js/" filename))))
 
+(restas:define-route
+  css
+  ("/css/:(filename)")
+  (format nil "~A~%" (file-to-str (concatenate 'string *project-path* "/css/" filename))))
+
