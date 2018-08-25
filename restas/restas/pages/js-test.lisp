@@ -1,13 +1,4 @@
 
-(defun file-to-str (file-path)
-  (let ((str ""))
-	(with-open-file (file file-path :direction :input)
-    	(do ((line (read-line file nil 'eof)
-	       (read-line file nil 'eof)))
-      ((eql line 'eof) str)
-      (setf str (concatenate 'string str line))))))
-
-
 (restas:define-route 
   jstest 
   ("/jstest")
@@ -20,6 +11,6 @@
 
     (:body 
       (:script "alert('hello world!');")
-      (:script (format t "~A" (file-to-str "/usr/home/freebsd/git/Common_Lisp/restas/restas/js/jstest.js")))
+      (:script :src "js/jstest.js")
       )))
 
