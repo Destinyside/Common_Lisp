@@ -20,6 +20,6 @@
 
     (:body 
       (:script "alert('hello world!');")
-      (:script `,(file-to-str "/usr/home/freebsd/git/Common_Lisp/restas/restas/js/jstest.js"))
+      (:script (format t "~A" (file-to-str "/usr/home/freebsd/git/Common_Lisp/restas/restas/js/jstest.js")))
       )))
 
