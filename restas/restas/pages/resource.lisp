@@ -16,6 +16,6 @@
 
 (restas:define-route
   css
-  ("/css/:(filename)")
+  ("/css/:(filename)" :content-type "text/css")
   (format nil "~A~%" (file-to-str (concatenate 'string *project-path* "/css/" filename))))
 

@@ -5,12 +5,15 @@
   ("/hello")
   (with-html
     (:html
-      (:head (:link :rel "stylesheet" :href "https://cdn.bootcss.com/bootstrap/4.0.0-beta/css/bootstrap.min.css")
-	     (:script :src "https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js")
-	     (:script :src "https://cdn.bootcss.com/popper.js/1.12.5/umd/popper.min.js")
-	     (:script :src "https://cdn.bootcss.com/bootstrap/4.0.0-beta/js/bootstrap.min.js")))
+      (:head 
+	(:link :rel "stylesheet" :href "https://cdn.bootcss.com/bootstrap/4.0.0-beta/css/bootstrap.min.css")
+	(:link :rel "stylesheet" :href "css/test.css")
+	(:script :src "https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js")
+	(:script :src "https://cdn.bootcss.com/popper.js/1.12.5/umd/popper.min.js")
+	(:script :src "https://cdn.bootcss.com/bootstrap/4.0.0-beta/js/bootstrap.min.js")))
 
-    (:body (:table :class "table table-hover"
+    (:body 
+      (:table :class "table table-hover"
 		   (:caption "test")
 		   (:tr
 		     (:th "test1")
@@ -20,7 +23,9 @@
 		     (:th "test2")
 		     (:td "line2_1")
 		     (:td "line2_2")))
-	   (:a :href "/jstest" "js-test")
+	   
+      (:a :href "/jstest" "js-test")
+      (:div :class "css-test" "test the function of css.")
 	   )
     ))
 
