@@ -1,4 +1,5 @@
 
+
 ;;; add require for "ASDF"
 #+ecl (require 'ecl-quicklisp)
 #+(or sbcl clisp) (load "~/quicklisp/setup.lisp")
@@ -10,24 +11,31 @@
 		      (:use :cl))
 ;;;
 (in-package #:restas.hello-world)
-
 (asdf:oos 'asdf:load-op '#:cl-who)
 (asdf:oos 'asdf:load-op '#:cl-bootstrap)
 
-(defconstant *project-path* "~/Projects/Git/Common_Lisp/restas/restas")
+#+sbcl (defconstant +format+ :UTF-8)
+#+(or clisp) (defconstant +format+ "UTF-8")
+#+(or ccl clisp) (setq *default-external-format* +format+)
 
-(defconstant *static-path* "~/Projects/Git/Common_Lisp/restas/restas/static")
-(defconstant *static-url* "http://localhost:8181/")
+(defconstant +locale+ :en)
+(defparameter *messages* '())
+
+(defconstant +project-path+ "~/Projects/Git/Common_Lisp/restas/restas")
+(defconstant +static-path+ "~/Projects/Git/Common_Lisp/restas/restas/static")
+(defconstant +static-url+ "http://localhost:8181/")
 
 (defun cat (&rest value-list)
   (apply #'concatenate 'string value-list))
 
-;(defun script (content &key path)
-;  (format t "~A" content
-(load "template.lisp")
-(load "modules/index.lisp")
-(load "modules/hello.lisp")
-(load "modules/test.lisp")
+(load "localization/messages.lisp" :external-format +format+)
+(defun msg-ref (key)
+  (messages-ref +locale+ key))
+
+(load "template.lisp" :external-format +format+)
+(load "modules/index.lisp" :external-format +format+)
+(load "modules/hello.lisp" :external-format +format+)
+(load "modules/test.lisp" :external-format +format+)
 
 (ensure-directories-exist #P"/tmp/hunchentoot/")
 

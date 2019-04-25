@@ -5,7 +5,7 @@
   (with-html
     (:title "js-test")
       (:script "alert('hello world!');")
-      (:script :src (cat *static-url* "js/jstest.js"))
+      (:script :src (cat +static-url+ "js/jstest.js"))
       ))
 
 

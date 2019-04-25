@@ -7,20 +7,20 @@
 	 (:title ,title)
 	 (:meta :charset "UTF-8")
 	 (:meta :name "viewport" :content "width=device-width, initial-scale=1.0")
-	 (:link :rel "stylesheet" :href (cat *static-url* "/bootstrap/css/bootstrap.min.css"))
-	 (:link :rel "stylesheet" :href (cat *static-url* "/css/main.css"))
-	 (:link :rel "stylesheet" :href (cat *static-url* "/css/colorful.css"))
-	 (:link :rel "stylesheet" :href (cat *static-url* "/bootoast/bootoast.min.css"))
-	 (:script :src (cat *static-url* "/js/jquery/jquery-3.3.1.js"))
-	 (:script :src (cat *static-url* "/bootstrap/js/bootstrap.min.js"))
-	 (:script :src (cat *static-url* "/bootoast/bootoast.min.js"))
-	 (:script :src (cat *static-url* "/js/encrypt/crypto-js/core.js"))
-	 (:script :src (cat *static-url* "/js/encrypt/crypto-js/enc-base64.js"))
-	 (:script :src (cat *static-url* "/js/encrypt/crypto-js/md5.js"))
-	 (:script :src (cat *static-url* "/js/encrypt/jsencrypt.min.js"))
-	 (:script :src (cat *static-url* "/js/jquery/validator/jquery.validate.min.js"))
-	 (:script :src (cat *static-url* "/js/jquery/validator/localization/messages_zh.min.js"))
-	 (:script :src (cat *static-url* "/js/page/util.js"))
+	 (:link :rel "stylesheet" :href (cat +static-url+ "/css/bootstrap3/css/bootstrap.min.css"))
+	 (:link :rel "stylesheet" :href (cat +static-url+ "/css/main.css"))
+	 (:link :rel "stylesheet" :href (cat +static-url+ "/css/colorful.css"))
+	 (:link :rel "stylesheet" :href (cat +static-url+ "/css/bootoast/bootoast.min.css"))
+	 (:script :src (cat +static-url+ "/js/jquery/jquery.min.js"))
+	 (:script :src (cat +static-url+ "/css/bootstrap3/js/bootstrap.min.js"))
+	 (:script :src (cat +static-url+ "/css/bootoast/bootoast.min.js"))
+	 (:script :src (cat +static-url+ "/js/encrypt/crypto-js/core.js"))
+	 (:script :src (cat +static-url+ "/js/encrypt/crypto-js/enc-base64.js"))
+	 (:script :src (cat +static-url+ "/js/encrypt/crypto-js/md5.js"))
+	 (:script :src (cat +static-url+ "/js/encrypt/jsencrypt.min.js"))
+	 (:script :src (cat +static-url+ "/js/jquery/validator/jquery.validate.min.js"))
+	 (:script :src (cat +static-url+ "/js/jquery/validator/localization/messages_zh.min.js"))
+	 (:script :src (cat +static-url+ "/js/page/util.js"))
 	 )
        (:body
 	 (:div :class "container-fluid"
@@ -33,8 +33,8 @@
 					     (:div :id "navbar-menu" :class "navbar-header"
 						   (:a :class "navbar-brand" :href "#"))
 					     (:ul :id "navbar-menu-right"  :class "nav navbar-nav navbar-right"
-						  (:li (:a :href "#" (:span :class "glyphicon glyphicon-user") "Register"))
-						  (:li (:a :href "#" (:span :class "glyphicon glyphicon-log-in") "Login")))))
+						  (:li (:a :href "#" (:span :class "glyphicon glyphicon-user") (msg-ref :login)))
+						  (:li (:a :href "#" (:span :class "glyphicon glyphicon-log-in") (msg-ref :register))))))
 				 (:style "#navbar { margin-bottom: 0px;} #navbar-nav { border: 1px solid #ddd;}"))			
 			   ;; Body content
 			   (:div :id "main-content" :class "col-xs-12"
@@ -66,7 +66,7 @@
 			   (:div :id "footer" :class "navbar-fixed-bottom"
 				 (:hr)
 				 (:footer :class "text-center"
-					  (:p "&copy; BigDataAppManager 2019")
+					  (:p "&copy; ____ 2019")
 					  ))
 			   ;; footer end
 			   (:style "
