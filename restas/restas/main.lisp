@@ -37,6 +37,7 @@
     :access-log-destination #P"/tmp/hunchentoot/access_log"
     :message-log-destination #P"/tmp/hunchentoot/error_log"))
 
+(restas:debug-mode-on)
 ;;; start the server
 (restas:start '#:restas.hello-world 
 	      :port 8081
