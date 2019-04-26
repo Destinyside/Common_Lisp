@@ -1,6 +1,25 @@
 
 (restas:define-route 
-  jstest 
+  params-test 
+  ("/test/params")
+  (with-html
+    (:title "params-test")
+    (:div :class "col-lg-12"
+	  (:pre
+	    (json:encode-json (hunchentoot:get-parameters*)))
+	  )))
+
+(restas:define-route 
+  params-test/post 
+  ("/test/params" :method :post)
+  (with-html
+    (:title "params-test")
+    (:div :class "col-lg-12"
+	  (json:encode-json-to-string (hunchentoot:post-parameters*))
+	  )))
+
+(restas:define-route 
+  js-test 
   ("/test/js")
   (with-html
     (:title "js-test")
@@ -38,7 +57,7 @@
 (restas:define-route
   test500
   ("/test/code/:(code)")
-   (:render-method (make-instance 'mydrawer))
+  (:render-method (make-instance 'mydrawer))
   (let ((return-code nil)
 	(code-str (map 'string #'(lambda (x) x) code)))
     (format t "~A  ~A : ~A ~%" code-str (type-of code-str) (equal code-str "500"))
@@ -46,7 +65,10 @@
       ((equal code-str "500") (setf return-code hunchentoot:+http-internal-server-error+))
       (t (setf return-code hunchentoot:+http-not-found+)))
     (setf (hunchentoot:return-code*) return-code))
-  nil)
+  (with-html
+    (:title code)
+    (:div :class "col-lg-12 text-center"
+	  (:h1 (format t "~A" code)))))
 
 
 

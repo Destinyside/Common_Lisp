@@ -7,13 +7,15 @@
 (asdf:operate 'asdf:load-op '#:restas)
 
 ;;; use restas define a module
-(restas:define-module #:restas.hello-world
+(restas:define-module #:restas.tools
 		      (:use :cl))
 
 ;;;
-(in-package #:restas.hello-world)
+(in-package #:restas.tools)
 (asdf:oos 'asdf:load-op '#:cl-who)
 (asdf:oos 'asdf:load-op '#:cl-bootstrap)
+(asdf:oos 'asdf:load-op '#:cl-json)
+(asdf:oos 'asdf:load-op '#:cl-dbi)
 
 #+sbcl (defconstant +format+ :UTF-8)
 #+(or clisp) (defconstant +format+ "UTF-8")
@@ -26,6 +28,7 @@
 (defconstant +static-path+ "~/Projects/Git/Common_Lisp/restas/restas/static")
 (defconstant +static-url+ "http://localhost:8181/")
 
+(load "modules/db.lisp" :external-format +format+)
 
 (defun cat (&rest value-list)
   (apply #'concatenate 'string value-list))
@@ -62,6 +65,7 @@
 (load "modules/index.lisp" :external-format +format+)
 (load "modules/hello.lisp" :external-format +format+)
 (load "modules/test.lisp" :external-format +format+)
+(load "modules/api.lisp" :external-format +format+)
 
 (ensure-directories-exist #P"/tmp/hunchentoot/")
 
@@ -73,7 +77,7 @@
 
 (restas:debug-mode-on)
 ;;; start the server
-(restas:start '#:restas.hello-world 
+(restas:start '#:restas.tools
 	      :port 8081
 	      :acceptor-class 'acceptor)
 
