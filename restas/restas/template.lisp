@@ -32,14 +32,15 @@
 				       (:div :class "container-fluid"
 					     (:div :id "navbar-menu" :class "navbar-header"
 						   (:a :class "navbar-brand" :href "#"))
+					     (nav-menus +menus+)
 					     (:ul :id "navbar-menu-right"  :class "nav navbar-nav navbar-right"
-						  (:li (:a :href "#" (:span :class "glyphicon glyphicon-user") (msg-ref :login)))
-						  (:li (:a :href "#" (:span :class "glyphicon glyphicon-log-in") (msg-ref :register))))))
+						  (:li (:a :href "#" (:span :class "glyphicon glyphicon-user") " " (msg-ref :login) " "))
+						  (:li (:a :href "#" (:span :class "glyphicon glyphicon-log-in") " " (msg-ref :register) " ")))))
 				 (:style "#navbar { margin-bottom: 0px;} #navbar-nav { border: 1px solid #ddd;}"))			
 			   ;; Body content
 			   (:div :id "main-content" :class "col-xs-12"
 				 (:div :id "modules" :class "container-fluid"
-				       (:div :class "row-fluid" ,@body)))
+				       (:div :id "main-row" :class "row-fluid" ,@body)))
 
 			   ;; Body end
 
@@ -63,23 +64,38 @@
 			   ;; alert end
 
 			   ;; footer
-			   (:div :id "footer" :class "navbar-fixed-bottom"
-				 (:hr)
-				 (:footer :class "text-center"
-					  (:p "&copy; ____ 2019")
-					  ))
+			   ;;(:div :id "footer" :class "navbar-fixed-bottom"
+			   ;;	 (:hr)
+			   ;;	 (:footer :class "text-center"
+			   ;;		  (:p "&copy; ____ 2019")
+			   ;;		  ))
 			   ;; footer end
-			   (:style "
-				   #side {
-				   padding: 0px 15px 0px 0px;
-				   }
-				   #main-content {
-				   padding: 0px;
-				   }
-				   #main-content > * {
-				   padding: 0px;
-				   }
-				   "))))))
-				   ;; html content end
-				   ))
+			   (:style 
+			     "
+			     #content {
+			     padding: 0px;
+			     }
+
+			     #content > * {
+			     padding: 0px;
+			     }
+
+			     #main-content {
+			     padding: 0px;
+			     }
+
+			     #main-row > * {
+			     padding: 0px;
+			     }
+
+			     #main-content > * {
+			     padding: 0px;
+			     }
+
+			     .panel {
+			     height: 100%;
+			     }
+			     "))))))
+			     ;; html content end
+			     ))
 
