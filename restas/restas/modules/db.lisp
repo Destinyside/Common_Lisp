@@ -29,9 +29,10 @@
 	 (where-str (if (null where) "  " where))
 	 (sql (concatenate 'string "SELECT * FROM " table-str "  " where-str))
 	 (query (dbi:prepare *connection-sqlite* sql))
-	 (result (apply #'dbi:execute query params)))
+	 (result (apply #'dbi:execute query params))
+	 (lst '()))
     (loop for row = (dbi:fetch result)
 	  while row
-	  do (format t "~S~%" row))))
+	  do (push row lst))
+    lst))
 
-(db-query 'tl_user) 

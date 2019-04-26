@@ -19,6 +19,15 @@
 	  )))
 
 (restas:define-route 
+  db-test 
+  ("/test/db/:(table-name)/:(col)/:(value)")
+  (with-html
+    (:title "db-test")
+    (:div :class "col-lg-12"
+	  (json:encode-json (db-query table-name (concatenate 'string "where " col "=? ") value))
+	  )))
+
+(restas:define-route 
   js-test 
   ("/test/js")
   (with-html
