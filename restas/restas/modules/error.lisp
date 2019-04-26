@@ -1,7 +1,6 @@
 
 
 
-(defclass mydrawer () ())
 
 (defmethod restas:render-object 
   ((designer mydrawer) 

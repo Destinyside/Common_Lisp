@@ -38,13 +38,15 @@
 (restas:define-route
   test500
   ("/test/code/:(code)")
-  (let ((return-code nil))
-    (format t "~A~%" (type-of code))
-    (case code
-      ("500" (setf return-code hunchentoot:+http-internal-server-error+))
+   (:render-method (make-instance 'mydrawer))
+  (let ((return-code nil)
+	(code-str (map 'string #'(lambda (x) x) code)))
+    (format t "~A  ~A : ~A ~%" code-str (type-of code-str) (equal code-str "500"))
+    (cond
+      ((equal code-str "500") (setf return-code hunchentoot:+http-internal-server-error+))
       (t (setf return-code hunchentoot:+http-not-found+)))
     (setf (hunchentoot:return-code*) return-code))
-  "aaa")
+  nil)
 
 
 

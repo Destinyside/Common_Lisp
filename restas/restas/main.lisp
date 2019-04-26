@@ -56,6 +56,7 @@
 
 (setf (cl-who:html-mode) :html5)
 
+(defclass mydrawer () ())
 (load "template.lisp" :external-format +format+)
 (load "modules/error.lisp" :external-format +format+)
 (load "modules/index.lisp" :external-format +format+)
