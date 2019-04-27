@@ -15,7 +15,7 @@
   (with-html
     (:title "params-test")
     (:div :class "col-lg-12"
-	  (json:encode-json-to-string (hunchentoot:post-parameters*))
+	  (json:encode-json (hunchentoot:post-parameters*))
 	  )))
 
 (restas:define-route 
@@ -69,7 +69,6 @@
   (:render-method (make-instance 'mydrawer))
   (let ((return-code nil)
 	(code-str (map 'string #'(lambda (x) x) code)))
-    (format t "~A  ~A : ~A ~%" code-str (type-of code-str) (equal code-str "500"))
     (cond
       ((equal code-str "500") (setf return-code hunchentoot:+http-internal-server-error+))
       (t (setf return-code hunchentoot:+http-not-found+)))

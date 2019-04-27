@@ -1,8 +1,8 @@
 
 ;;; define a route 
 (restas:define-route 
-  main 
-  ("" :method :get)
+  login
+  ("/login" :method :get)
   (with-html
     (:title "index")
     (:div :class "col-lg-12" :style "height:80%;"
@@ -25,10 +25,17 @@
 			 ))))))
 
 (restas:define-route
-  main/post
-  ("" :method :post)
+  login/post
+  ("/login" :method :post)
   (with-html
     (:title "index")
     (:a :href "/" (format t "~A" (hunchentoot:post-parameter "name")))))
 
 
+
+(restas:define-route
+  main
+  ("/")
+  (with-html
+    (:title "index")
+    (:h1 "Index")))

@@ -12,20 +12,28 @@
 
 ;;;
 (in-package #:restas.tools)
+;; html template
 (asdf:oos 'asdf:load-op '#:cl-who)
+;; bootstrap
 (asdf:oos 'asdf:load-op '#:cl-bootstrap)
+;; css
+(asdf:oos 'asdf:load-op '#:cl-css)
+;; json for api
 (asdf:oos 'asdf:load-op '#:cl-json)
+;; db access
 (asdf:oos 'asdf:load-op '#:cl-dbi)
 
+;; encode
 #+sbcl (defconstant +format+ :UTF-8)
 #+(or clisp) (defconstant +format+ "UTF-8")
 #+(or ccl clisp) (setq *default-external-format* +format+)
-
+;; locale and localization 
 (defconstant +locale+ :zh)
 (defparameter *messages* '())
 
 (defconstant +project-path+ "~/Projects/Git/Common_Lisp/restas/restas")
 (defconstant +static-path+ "~/Projects/Git/Common_Lisp/restas/restas/static")
+;; static resource files, use nginx as a cdn
 (defconstant +static-url+ "http://localhost:8181/")
 
 (load "modules/db.lisp" :external-format +format+)
@@ -34,6 +42,7 @@
   (apply #'concatenate 'string value-list))
 
 (load "localization/messages.lisp" :external-format +format+)
+
 (defun msg-ref (key)
   (messages-ref +locale+ key))
 
@@ -55,7 +64,9 @@
 	       (:name ,(msg-ref-1 :menu5) :url "#" :icon "inbox" :child nil)
 	       (:name ,(msg-ref-1 :menu6) :url "/hello" :icon "ok" :child nil)
 	       ))
-(load "menus.lisp" :external-format +format+)
+
+(load "modules/menus.lisp" :external-format +format+)
+(load "modules/style.lisp" :external-format +format+)
 
 (setf (cl-who:html-mode) :html5)
 
