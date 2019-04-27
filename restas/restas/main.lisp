@@ -49,6 +49,12 @@
 (defun msg-ref-1 (key)
   (messages-ref-1 +locale+ key))
 
+(load "modules/menus.lisp" :external-format +format+)
+(load "modules/style.lisp" :external-format +format+)
+
+(defconstant +menus+ (fetch-child-menus (fetch-parent-menus)))
+
+#|
 (defconstant +menus+ 
 	     `(
 	       (:name ,(msg-ref-1 :menu1) :url "/" :icon "home" :child nil)
@@ -60,13 +66,14 @@
 	       (:name ,(msg-ref-1 :menu3) :url "#" 
 		      :child ((:name ,(msg-ref-1 :m3-child1) :url "#" :icon "pushpin") 
 			      (:name ,(msg-ref-1 :m3-child2) :url "#" :icon "pushpin")))
-	       (:name ,(msg-ref-1 :menu4) :url "#" :icon "tasks" :child nil)
+	       (:name ,(msg-ref-1 :menu4-format) :url "/format" :icon "tasks" 
+		      :child ((:name ,(msg-ref-1 :m4-child1-json) :url "/format/json" :icon "pushbin")
+			      (:name ,(msg-ref-1 :m4-child2-xml) :url "/format/xml" :icon "pushbin")))
 	       (:name ,(msg-ref-1 :menu5) :url "#" :icon "inbox" :child nil)
 	       (:name ,(msg-ref-1 :menu6) :url "/hello" :icon "ok" :child nil)
 	       ))
+|#
 
-(load "modules/menus.lisp" :external-format +format+)
-(load "modules/style.lisp" :external-format +format+)
 
 (setf (cl-who:html-mode) :html5)
 
