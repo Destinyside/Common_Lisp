@@ -97,8 +97,25 @@
 (restas:debug-mode-on)
 (hunchentoot:reset-session-secret)
 ;;; start the server
-(restas:start '#:restas.tools
-	      :port 8081
-	      :acceptor-class 'acceptor)
+(defun web-main ()
+  (format t "starting web server at ~A...~%" 8081)
+  (restas:start '#:restas.tools
+		:port 8081
+		:acceptor-class 'acceptor))
 
-
+(web-main)
+;; save executable files 
+#|
+#+clisp (EXT:SAVEINITMEM 
+	  (concatenate 'string +project-path+ "/toolse")
+		 :QUIET t
+		 :INIT-FUNCTION 'web-main
+		 :EXECUTABLE t
+		 :NORC t
+		 )
+#+sbcl (sb-ext:save-lisp-and-die 
+	  "sbcle" 			  
+	  :toplevel 'web-main
+	  :executable t
+	  )
+|#
