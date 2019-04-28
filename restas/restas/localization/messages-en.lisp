@@ -3,6 +3,8 @@
       (list
 	:login "Login"
 	:register "Register"
+	:logout "Logout"
+	:user "User"
 	:|home| "Main"
 	:|test| "Test"
 	:|test-js| "Javascript"

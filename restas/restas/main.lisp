@@ -84,6 +84,7 @@
 (load "modules/hello.lisp" :external-format +format+)
 (load "modules/test.lisp" :external-format +format+)
 (load "modules/api.lisp" :external-format +format+)
+(load "modules/user.lisp" :external-format +format+)
 
 (ensure-directories-exist #P"/tmp/hunchentoot/")
 
@@ -94,6 +95,7 @@
     :message-log-destination #P"/tmp/hunchentoot/error_log"))
 
 (restas:debug-mode-on)
+(hunchentoot:reset-session-secret)
 ;;; start the server
 (restas:start '#:restas.tools
 	      :port 8081

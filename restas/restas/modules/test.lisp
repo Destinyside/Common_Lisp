@@ -18,6 +18,36 @@
 	  (json:encode-json (hunchentoot:post-parameters*))
 	  )))
 
+(restas:define-route
+  session-test
+  ("/test/session")
+  (with-html
+    (:title "session-test")
+    (:div :class "col-lg-12"
+	  (json:encode-json hunchentoot:*session*)
+	  )))
+
+(restas:define-route
+  session-test-get
+  ("/test/session/get/:(key)")
+  (let ((key-sym (intern (map 'string #'(lambda (x) x) key) :keyword)))
+  (with-html
+    (:title "session-test")
+    (:div :class "col-lg-12"
+	  (json:encode-json (hunchentoot:session-value key-sym))
+	  ))))
+
+(restas:define-route
+  session-test-set
+  ("/test/session/set/:(key)/:(value)")
+  (let ((key-sym (intern (map 'string #'(lambda (x) x) key) :keyword)))
+    (setf (hunchentoot:session-value key-sym) value)
+    (with-html
+      (:title "session-test")
+      (:div :class "col-lg-12"
+	    (json:encode-json (hunchentoot:session-value key-sym))
+	    ))))
+
 (restas:define-route 
   db-test 
   ("/test/db/:(table-name)/:(col)/:(value)")

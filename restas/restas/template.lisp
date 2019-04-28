@@ -7,6 +7,8 @@
 	 (:title ,title)
 	 (:meta :charset "UTF-8")
 	 (:meta :name "viewport" :content "width=device-width, initial-scale=1.0")
+	 (:link :rel "icon" :href (cat +static-url+ "/favicon.ico") :type "image/x-icon")
+	 (:link :rel "shortcut icon" :href (cat +static-url+ "/favicon.ico") :type "image/x-icon")
 	 (:link :rel "stylesheet" :href (cat +static-url+ "/css/bootstrap3/css/bootstrap.min.css"))
 	 (:link :rel "stylesheet" :href (cat +static-url+ "/css/main.css"))
 	 (:link :rel "stylesheet" :href (cat +static-url+ "/css/colorful.css"))
@@ -33,9 +35,8 @@
 					     (:div :id "navbar-menu" :class "navbar-header"
 						   (:a :class "navbar-brand" :href "#"))
 					     (nav-menus +menus+)
-					     (:ul :id "navbar-menu-right"  :class "nav navbar-nav navbar-right"
-						  (:li (:a :href "#" (:span :class "glyphicon glyphicon-user") " " (msg-ref :login) " "))
-						  (:li (:a :href "#" (:span :class "glyphicon glyphicon-log-in") " " (msg-ref :register) " ")))))
+					     (format *standard-output* "~A" (nav-menus-right (hunchentoot:session-value :|user|)))
+					     ))
 				 (:style "#navbar { margin-bottom: 0px;} #navbar-nav { border: 1px solid #ddd;}"))			
 			   ;; Body content
 			   (:div :id "main-content" :class "col-xs-12"

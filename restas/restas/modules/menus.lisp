@@ -8,7 +8,7 @@
   "Handle menu item"
   `(let ((name (getf ,@body ':name)))
      (cl-who:with-html-output
-       (*standard-output*)
+       (*standard-output* nil :indent t)
        (:li (:a :href (getf ,@body :url) (:span :class (cl-who:conc "glyphicon " "glyphicon-" (getf ,@body :icon))) (format *standard-output* " ~A " name))))))
 
 
@@ -17,7 +17,7 @@
   `(let ( ;;(id (string (gensym)))
 	  (name (getf ,@body ':name)))
      (cl-who:with-html-output
-       (*standard-output*)
+       (*standard-output* nil :indent t)
        (:li :class "dropdown" ;(concatenate 'string "dropdown" "-" id)
 	    (:a :href "#" :class "dropdown-toggle" :data-toggle "dropdown" ;;(concatenate 'string "dropdown" "-" id)
 		(format *standard-output* " ~A " name)
@@ -36,7 +36,7 @@
   "Navbar menus "
   `(let ((val ,@body))
      (cl-who:with-html-output
-       (*standard-output*)
+       (*standard-output* nil :indent t)
        (:ul :class "nav navbar-nav"
 	    `,(apply #'concatenate 'string
 		     (mapcar
@@ -46,6 +46,21 @@
 			     (nav-menu-item item)))
 		       val))))))
 
+(defun nav-menus-right (user)
+  "Right navbar menus"
+  (if (null user)
+    (cl-who:with-html-output
+      (*standard-output* nil :indent t)
+      (:ul :id "navbar-menu-right"  
+	   :class "nav navbar-nav navbar-right"
+	   (:li (:a :href "/login" (:span :class "glyphicon glyphicon-user") " " (msg-ref :login) " "))
+	   (:li (:a :href "/register" (:span :class "glyphicon glyphicon-log-in") " " (msg-ref :register) " "))))
+      (cl-who:with-html-output
+	(*standard-output* nil :indent t)
+	(:ul :id "navbar-menu-right"  
+	     :class "nav navbar-nav navbar-right"
+	     (:li (:a :href "/user" (:span :class "glyphicon glyphicon-user") " " (format *standard-output* "~A" (getf user :name)) " "))
+	     (:li (:a :href "/logout" (:span :class "glyphicon glyphicon-log-out") " " (msg-ref :logout) " "))))))
 
 (defun fetch-parent-menus ()
   (let ((menu-data (db-query 'tl_menu "where state=? and parent=?" 1 0))
@@ -56,8 +71,9 @@
 		    (name (format nil "~A" (getf item :|name|)))
 		    (url (format nil "~A" (getf item :|url|)))
 		    (icon (format nil "~A" (getf item :|icon|)))
-		    (parent-str (format nil "~A" (getf item :|parent|)))
-		    (parent (intern parent-str :keyword)))
+		    ;(parent-str (format nil "~A" (getf item :|parent|)))
+		    ;(parent (intern parent-str :keyword))
+		    )
 	       (setf (getf temp (intern id :keyword))
 		     (list :id id 
 			   :name (msg-ref-1 (intern name :keyword)) 
