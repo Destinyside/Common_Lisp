@@ -34,7 +34,7 @@
 (defconstant +project-path+ "~/Projects/Git/Common_Lisp/restas/restas")
 (defconstant +static-path+ "~/Projects/Git/Common_Lisp/restas/restas/static")
 ;; static resource files, use nginx as a cdn
-(defconstant +static-url+ "http://localhost:8181/")
+(defconstant +static-url+ "http://localhost/static")
 
 (load "modules/db.lisp" :external-format +format+)
 
@@ -97,10 +97,13 @@
 (restas:debug-mode-on)
 (hunchentoot:reset-session-secret)
 ;;; start the server
+
+(defconstant +server-port+ 8081)
+
 (defun web-main ()
-  (format t "starting web server at ~A...~%" 8081)
+  (format t "starting web server at ~A ...~%" +server-port+)
   (restas:start '#:restas.tools
-		:port 8081
+		:port +server-port+
 		:acceptor-class 'acceptor))
 
 (web-main)
