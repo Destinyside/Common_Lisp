@@ -13,7 +13,16 @@
 
 (defmethod add ((o Observer) (s Subject))
     (format t "Add Observer ~A to Subject ~A ~%" (obname o) (suname s))
-    (setf (oblist s) (append (oblist s) (list o))))
+    (let ((has nil))
+      (dolist (so (oblist s))
+        (if (eql (obname o) (obname so))
+          (setf has (or has t))
+          (setf has (or has nil)))
+        )
+      (if has
+        nil
+        (setf (oblist s) (append (oblist s) (list o)))
+        )))
 
 (defmethod removeo ((o Observer) (s Subject))
     (format t "Remove Observer ~A from Subject ~A ~%" (obname o) (suname s))
