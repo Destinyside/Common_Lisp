@@ -132,7 +132,7 @@
 
 
 ;;
-(defmethod initialize-instance :after ((account bank-account) &key) ...)
+;; (defmethod initialize-instance :after ((account bank-account) &key) ...)
 ;; (remove-method #'initialize-instance) find-method find-class
 ;; with-slots with-accessors
 

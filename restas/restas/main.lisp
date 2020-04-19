@@ -29,19 +29,33 @@
 #+(or ccl clisp) (setq *default-external-format* +format+)
 ;; locale and localization 
 (defconstant +locale+ :zh)
+(defconstant +project-name+ "Common_Lisp")
 (defparameter *messages* '())
-
-(defconstant +project-path+ "~/Projects/Git/Common_Lisp/restas/restas")
-(defconstant +static-path+ "~/Projects/Git/Common_Lisp/restas/restas/static")
-;; static resource files, use nginx as a cdn
-(defconstant +static-url+ "http://localhost/static")
-
-(load "modules/db.lisp" :external-format +format+)
 
 (defun cat (&rest value-list)
   (apply #'concatenate 'string value-list))
 
-(load "localization/messages.lisp" :external-format +format+)
+(defun ppath (path sub)
+	(let* ((pos (search +project-name+  path :from-end t))
+			(subpath (subseq path 0 pos)))
+		(cat subpath "" +project-name+ sub)
+	)
+)
+
+(defconstant +project-path+ (ppath (namestring (probe-file ".")) "/restas/restas/"))
+
+(defconstant +static-path+ (cat +project-path+ "static"))
+;; static resource files, use nginx as a cdn
+(defconstant +static-url+ "http://localhost/static")
+
+
+(defun pfile (fpath)
+	(cat +project-path+ fpath)
+)
+
+(load (pfile "modules/db.lisp") :external-format +format+)
+
+(load (pfile "localization/messages.lisp") :external-format +format+)
 
 (defun msg-ref (key)
   (messages-ref +locale+ key))
@@ -49,8 +63,8 @@
 (defun msg-ref-1 (key)
   (messages-ref-1 +locale+ key))
 
-(load "modules/menus.lisp" :external-format +format+)
-(load "modules/style.lisp" :external-format +format+)
+(load (pfile "modules/menus.lisp") :external-format +format+)
+(load (pfile "modules/style.lisp") :external-format +format+)
 
 (defconstant +menus+ (fetch-child-menus (fetch-parent-menus)))
 
@@ -72,19 +86,19 @@
 	       (:name ,(msg-ref-1 :menu5) :url "#" :icon "inbox" :child nil)
 	       (:name ,(msg-ref-1 :menu6) :url "/hello" :icon "ok" :child nil)
 	       ))
-|#
 
+|#
 
 (setf (cl-who:html-mode) :html5)
 
 (defclass mydrawer () ())
-(load "template.lisp" :external-format +format+)
-(load "modules/error.lisp" :external-format +format+)
-(load "modules/index.lisp" :external-format +format+)
-(load "modules/hello.lisp" :external-format +format+)
-(load "modules/test.lisp" :external-format +format+)
-(load "modules/api.lisp" :external-format +format+)
-(load "modules/user.lisp" :external-format +format+)
+(load (pfile "template.lisp") :external-format +format+)
+(load (pfile "modules/error.lisp") :external-format +format+)
+(load (pfile "modules/index.lisp") :external-format +format+)
+(load (pfile "modules/hello.lisp") :external-format +format+)
+(load (pfile "modules/test.lisp") :external-format +format+)
+(load (pfile "modules/api.lisp") :external-format +format+)
+(load (pfile "modules/user.lisp") :external-format +format+)
 
 (ensure-directories-exist #P"/tmp/hunchentoot/")
 

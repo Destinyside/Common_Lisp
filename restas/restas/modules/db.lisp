@@ -21,15 +21,15 @@
 
 (defvar *connection-sqlite*
   (dbi:connect :sqlite3
-	       :database-name "data.db"))
+	       :database-name (pfile "data.db")))
 
 
 (defun db-query (table &optional where &rest params)
   (let* ((table-str (format nil "~A" table)) 
 	 (where-str (if (null where) "  " where))
-	 (sql (concatenate 'string "SELECT * FROM " table-str "  " where-str))
+	 (sql (cat "SELECT * FROM " table-str "  " where-str))
 	 (query (dbi:prepare *connection-sqlite* sql))
-	 (result (apply #'dbi:execute query params))
+	 (result (dbi:execute query params))
 	 (lst '()))
     (loop for row = (dbi:fetch result)
 	  while row
