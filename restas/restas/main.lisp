@@ -44,9 +44,9 @@
 
 (defconstant +project-path+ (ppath (namestring (probe-file ".")) "/restas/restas/"))
 
-(defconstant +static-path+ (cat +project-path+ "static"))
+(defconstant +static-path+ (cat +project-path+ "assets"))
 ;; static resource files, use nginx as a cdn
-(defconstant +static-url+ "http://localhost/static")
+(defconstant +static-url+ "http://localhost/assets")
 
 
 (defun pfile (fpath)
